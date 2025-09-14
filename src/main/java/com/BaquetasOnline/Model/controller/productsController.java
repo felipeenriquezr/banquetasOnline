@@ -1,6 +1,6 @@
 package com.BaquetasOnline.Model.controller;
 
-import com.BaquetasOnline.Model.repository.ProductoRepository;
+import com.BaquetasOnline.Model.repository.productsRepository;
 import org.hibernate.sql.results.jdbc.internal.JdbcValuesMappingProducerStandard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 @Controller
-public class ProductoController {
+public class productsController {
     @Autowired
-    private ProductoRepository productoRepository;
+    private productsRepository productsRepository;
 
     @GetMapping("/products")
     public String listProducts(Model model) {
-        List<JdbcValuesMappingProducerStandard> products = productoRepository.findAll();
+        List<JdbcValuesMappingProducerStandard> products = productsRepository.findAll();
         model.addAttribute("products", products);
         return "products";
     }
