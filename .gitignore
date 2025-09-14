@@ -31,3 +31,20 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Archivos de IntelliJ
+.idea/
+*.iml
+
+# Archivos de Maven y de construcción
+target/
+*.jar
+*.war
+
+# Archivos de sistema
+.DS_Store
+
+# Archivos de Spring Boot
+# No subir logs ni archivos temporales
+/logs/
+/temp/
