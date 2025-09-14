@@ -1,7 +1,7 @@
 package com.BaquetasOnline.Model.repository;
 
-import com.BaquetasOnline.Model.Producto;
+import org.hibernate.sql.results.jdbc.internal.JdbcValuesMappingProducerStandard;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProductoRepository extends JpaRepository<Producto, Long> {
+public interface ProductoRepository extends JpaRepository<JdbcValuesMappingProducerStandard, Long> {
 }
