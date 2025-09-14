@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,148 +34,32 @@
                     <a class="nav-link" href="#contacto">Contacto</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Buscar productos" aria-label="Search">
-                <button class="btn btn-outline-light" type="submit">Buscar</button>
-            </form>
         </div>
     </div>
 </nav>
 
 <div class="container my-4 text-center">
     <h1 class="display-4 fw-bold">Productos</h1>
+    <div class="d-flex justify-content-center my-4">
+        <form class="d-flex col-12 col-md-6" role="search">
+            <input class="form-control me-2" type="search" placeholder="Buscar productos" aria-label="Search">
+            <button class="btn btn-dark" type="submit">Buscar</button>
+        </form>
+    </div>
 </div>
 
 <div class="container my-5">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-        <div class="col">
+        <!-- th:each itera sobre la lista 'productos' que viene del controlador de Spring Boot -->
+        <div class="col" th:each="producto : ${products}">
             <div class="card h-100 product-card shadow-sm">
-                <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Baquetas de madera de arce">
+                <!-- th:src y th:alt establecen el URL y el texto alternativo de la imagen de forma dinámica -->
+                <img th:src="${product.image_url}" class="card-img-top" th:alt="${product.image_alt}">
                 <div class="card-body">
-                    <h5 class="card-title">Baquetas de Arce 5A</h5>
-                    <p class="card-text">Ligeras y equilibradas. Ideales para jazz y rock suave.</p>
-                    <h4 class="text-primary">$20.00</h4>
-                    <a href="#" class="btn btn-dark">Añadir al carrito</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 product-card shadow-sm">
-                <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Baquetas de nogal 5B">
-                <div class="card-body">
-                    <h5 class="card-title">Baquetas de Nogal 5B</h5>
-                    <p class="card-text">Mayor peso y durabilidad. Perfectas para rock y metal.</p>
-                    <h4 class="text-primary">$25.00</h4>
-                    <a href="#" class="btn btn-dark">Añadir al carrito</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 product-card shadow-sm">
-                <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Baquetas con punta de nylon">
-                <div class="card-body">
-                    <h5 class="card-title">Baquetas de Nylon</h5>
-                    <p class="card-text">Punta de nylon para un sonido más brillante en los platillos.</p>
-                    <h4 class="text-primary">$22.00</h4>
-                    <a href="#" class="btn btn-dark">Añadir al carrito</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 product-card shadow-sm">
-                <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Baquetas de roble">
-                <div class="card-body">
-                    <h5 class="card-title">Baquetas de Roble</h5>
-                    <p class="card-text">Madera densa para un rebote más rápido y gran proyección.</p>
-                    <h4 class="text-primary">$30.00</h4>
-                    <a href="#" class="btn btn-dark">Añadir al carrito</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 product-card shadow-sm">
-                <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Baquetas de bambú">
-                <div class="card-body">
-                    <h5 class="card-title">Baquetas de Bambú</h5>
-                    <p class="card-text">Flexibles y resistentes, con un tacto único.</p>
-                    <h4 class="text-primary">$28.00</h4>
-                    <a href="#" class="btn btn-dark">Añadir al carrito</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 product-card shadow-sm">
-                <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Baquetas de metal">
-                <div class="card-body">
-                    <h5 class="card-title">Baquetas de Metal</h5>
-                    <p class="card-text">Extremadamente duraderas para práctica intensiva.</p>
-                    <h4 class="text-primary">$35.00</h4>
-                    <a href="#" class="btn btn-dark">Añadir al carrito</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 product-card shadow-sm">
-                <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Baquetas con punta de goma">
-                <div class="card-body">
-                    <h5 class="card-title">Baquetas de Goma</h5>
-                    <p class="card-text">Diseñadas para practicar en pads y reducir el ruido.</p>
-                    <h4 class="text-primary">$20.00</h4>
-                    <a href="#" class="btn btn-dark">Añadir al carrito</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 product-card shadow-sm">
-                <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Baquetas de cedro">
-                <div class="card-body">
-                    <h5 class="card-title">Baquetas de Cedro</h5>
-                    <p class="card-text">Muy ligeras para un manejo rápido y ágil.</p>
-                    <h4 class="text-primary">$21.00</h4>
-                    <a href="#" class="btn btn-dark">Añadir al carrito</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 product-card shadow-sm">
-                <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Baquetas de fibra de carbono">
-                <div class="card-body">
-                    <h5 class="card-title">Baquetas de Fibra de Carbono</h5>
-                    <p class="card-text">Extremadamente resistentes, ideales para sesiones largas.</p>
-                    <h4 class="text-primary">$45.00</h4>
-                    <a href="#" class="btn btn-dark">Añadir al carrito</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 product-card shadow-sm">
-                <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Baquetas de abeto">
-                <div class="card-body">
-                    <h5 class="card-title">Baquetas de Abeto</h5>
-                    <p class="card-text">Económicas y versátiles, perfectas para principiantes.</p>
-                    <h4 class="text-primary">$18.00</h4>
-                    <a href="#" class="btn btn-dark">Añadir al carrito</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 product-card shadow-sm">
-                <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Baquetas con punta de fieltro">
-                <div class="card-body">
-                    <h5 class="card-title">Baquetas de Fieltro</h5>
-                    <p class="card-text">Diseñadas para un sonido suave en platillos y toms.</p>
-                    <h4 class="text-primary">$26.00</h4>
-                    <a href="#" class="btn btn-dark">Añadir al carrito</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 product-card shadow-sm">
-                <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="Baquetas de fresno">
-                <div class="card-body">
-                    <h5 class="card-title">Baquetas de Fresno</h5>
-                    <p class="card-text">Resistentes a los golpes y con un gran rebote natural.</p>
-                    <h4 class="text-primary">$24.00</h4>
+                    <!-- th:text establece el texto del elemento de forma dinámica -->
+                    <h5 class="card-title" th:text="${product.name}"></h5>
+                    <p class="card-text" th:text="${product.description}"></p>
+                    <h4 class="text-primary" th:text="'$' + ${product.price}"></h4>
                     <a href="#" class="btn btn-dark">Añadir al carrito</a>
                 </div>
             </div>
