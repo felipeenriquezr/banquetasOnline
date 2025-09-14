@@ -1,6 +1,6 @@
 package repositories;
 
-import com.BaquetasOnline.Model.user.java;
+import com.BaquetasOnline.Model.user;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
