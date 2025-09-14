@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 @Entity
-public class Usuario {
+public class user {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,7 +14,7 @@ public class Usuario {
     private String nombre;
     private String email;
 
-    public Usuario() {
+    public user() {
         // Constructor vacío es requerido por JPA
     }
 
