@@ -41,17 +41,19 @@
 <div class="container my-4 text-center">
     <h1 class="display-4 fw-bold">Productos</h1>
     <div class="d-flex justify-content-center my-4">
-        <form class="d-flex col-12 col-md-6" role="search">
-            <input class="form-control me-2" type="search" placeholder="Buscar productos" aria-label="Search">
+        <!-- El formulario ahora se envía al controlador de Java -->
+        <form th:action="@{/productos/buscar}" th:method="get" class="d-flex col-12 col-md-6" role="search">
+            <!-- El campo de entrada ahora tiene un nombre para que el controlador lo reciba -->
+            <input name="query" class="form-control me-2" type="search" placeholder="Buscar productos" aria-label="Search">
             <button class="btn btn-dark" type="submit">Buscar</button>
         </form>
     </div>
 </div>
 
-<div class="container my-5">
+<div id="product-list" class="container my-5">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-        <!-- th:each itera sobre la lista 'productos' que viene del controlador de Spring Boot -->
-        <div class="col" th:each="producto : ${products}">
+        <!-- th:each itera sobre la lista 'products' que viene del controlador de Spring Boot -->
+        <div class="col" th:each="product : ${products}">
             <div class="card h-100 product-card shadow-sm">
                 <!-- th:src y th:alt establecen el URL y el texto alternativo de la imagen de forma dinámica -->
                 <img th:src="${product.image_url}" class="card-img-top" th:alt="${product.image_alt}">
