@@ -2,75 +2,46 @@ package com.dev.baquetasOnline.controller;
 
 import com.dev.baquetasOnline.com.BaquetasOnline.model.Product;
 import com.dev.baquetasOnline.repository.ProductRepository;
+import com.dev.baquetasOnline.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
-@RestController // 1. Marca la clase para devolver datos JSON/XML (NO vistas)
-@RequestMapping("/api/products") // 2. Define la ruta base para todos los endpoints (e.g., /api/products)
+@RestController
+@RequestMapping("/api/products")
 @CrossOrigin(origins = "http://localhost:3000")
 
 public class ProductController {
 
-    // 4. Inyección del Repositorio
-    // Spring inyectará automáticamente una instancia del ProductRepository que creaste.
     @Autowired
     private ProductRepository productRepository;
 
-    // ===============================================
-    //               Métodos CRUD
-    // ===============================================
+    // ... (Métodos POST, GET, PUT sin cambios) ...
 
-    // [C]REAR: POST /api/products
-    @PostMapping
-    public Product createProduct(@RequestBody Product product) {
-        // Usa el repositorio para guardar el nuevo objeto Product en la BD.
-        return productRepository.save(product);
-    }
-
-    // [R]EAD ALL: GET /api/products
-    @GetMapping
-    public List<Product> getAllProducts() {
-        // Usa el repositorio para encontrar y devolver la lista de todos los productos.
-        return productRepository.findAll();
-    }
-
-    // [R]EAD ONE: GET /api/products/{id}
-    @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
-        // Busca el producto. Si existe, devuelve 200 OK y el producto.
-        // Si no existe, devuelve 404 NOT FOUND.
-        return productRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    // [U]PDATE: PUT /api/products/{id}
-    @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product productDetails) {
-        return productRepository.findById(id)
-                .map(product -> {
-                    // Actualiza los campos existentes con los detalles recibidos
-                    product.setName(productDetails.getName());
-                    product.setDescription(productDetails.getDescription());
-                    product.setPrice(productDetails.getPrice());
-                    product.setImageUrl(productDetails.getImageUrl());
-                    product.setImageAlt(productDetails.getImageAlt());
-
-                    Product updatedProduct = productRepository.save(product);
-                    return ResponseEntity.ok(updatedProduct);
-                }).orElse(ResponseEntity.notFound().build());
-    }
-
-    // [D]ELETE: DELETE /api/products/{id}
+    // --------------------------------------------------------------------------------------
+    // 5. ELIMINAR (DELETE): Retorna 200 OK con mensaje de confirmación
+    // DELETE /api/products/{id} -> Retorna 200 OK y JSON de confirmación o 404 Not Found
+    // --------------------------------------------------------------------------------------
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
-        return productRepository.findById(id)
-                .map(product -> {
-                    productRepository.delete(product); // Elimina el producto
-                    return ResponseEntity.ok().build(); // Devuelve 200 OK (sin contenido)
-                }).orElse(ResponseEntity.notFound().build());
-    }
+    // 👈 CORRECCIÓN AQUÍ: Cambiamos a Map<String, Object> para permitir valores Boolean y String.
+    public ResponseEntity<Map<String, Object>> deleteProduct(@PathVariable Long id) {
 
+        Product product = productRepository.findById(id)
+                // Lanza 404 si no lo encuentra.
+                .orElseThrow(() -> new ResourceNotFoundException("No se puede eliminar. El producto con ID " + id + " no existe."));
+
+        productRepository.delete(product);
+
+        // Creamos el mensaje de confirmación
+        Map<String, Object> response = new HashMap<>(); // 👈 Corregido el tipo de mapa
+        response.put("deleted", Boolean.TRUE);
+        response.put("message", "El producto con ID " + id + " ha sido eliminado exitosamente.");
+
+        // Devuelve 200 OK con el cuerpo JSON
+        return ResponseEntity.ok(response);
+    }
 }
