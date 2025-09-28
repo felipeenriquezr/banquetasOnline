@@ -1,10 +1,7 @@
 package com.dev.baquetasOnline.com.BaquetasOnline.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 
 // Si usas Lombok, importa esta línea:
 import lombok.Data;
@@ -14,6 +11,7 @@ import lombok.Data;
 
 @Entity // 👈 Anotación CLAVE: Marca esta clase como un objeto persistente mapeado a una tabla.
 @Data   // 👈 Anotación de Lombok: Genera automáticamente getters, setters, toString, hashCode, y equals.
+@Table(name = "products")
 public class Product {
 
     // 1. Mapeo de la llave primaria (id_product)
