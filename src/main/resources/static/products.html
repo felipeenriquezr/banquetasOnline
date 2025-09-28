@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head>
+<html lang="es"> <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productos - Baquetas Pro</title>
+    <title>Productos - Baquetas Pro (API REST)</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .product-card {
@@ -11,6 +10,11 @@
         }
         .product-card:hover {
             transform: scale(1.05);
+        }
+        /* Estilo para el mensaje de carga/error */
+        #loading-message {
+            text-align: center;
+            padding: 50px;
         }
     </style>
 </head>
@@ -41,47 +45,19 @@
 <div class="container my-4 text-center">
     <h1 class="display-4 fw-bold">Productos</h1>
     <div class="d-flex justify-content-center my-4">
-        <!-- El formulario ahora se envía al controlador de Java -->
-        <form th:action="@{/productos/buscar}" th:method="get" class="d-flex col-12 col-md-6" role="search">
-            <!-- El campo de entrada ahora tiene un nombre para que el controlador lo reciba -->
-            <input name="query" class="form-control me-2" type="search" placeholder="Buscar productos" aria-label="Search">
+        <form class="d-flex col-12 col-md-6" role="search">
+            <input id="search-input" class="form-control me-2" type="search" placeholder="Buscar productos" aria-label="Search">
             <button class="btn btn-dark" type="submit">Buscar</button>
         </form>
     </div>
 </div>
 
-<div id="product-list" class="container my-5">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-        <!-- th:each itera sobre la lista 'products' que viene del controlador de Spring Boot -->
-        <div class="col" th:each="product : ${products}">
-            <div class="card h-100 product-card shadow-sm">
-                <!-- th:src y th:alt establecen el URL y el texto alternativo de la imagen de forma dinámica -->
-                <img th:src="${product.image_url}" class="card-img-top" th:alt="${product.image_alt}">
-                <div class="card-body">
-                    <!-- th:text establece el texto del elemento de forma dinámica -->
-                    <h5 class="card-title" th:text="${product.name}"></h5>
-                    <p class="card-text" th:text="${product.description}"></p>
-                    <h4 class="text-primary" th:text="'$' + ${product.price}"></h4>
-                    <a href="#" class="btn btn-dark">Añadir al carrito</a>
-                </div>
-            </div>
-        </div>
+<div id="product-list-container" class="container my-5">
+    <div id="loading-message">Cargando productos desde la API...</div>
+
+    <div id="product-list" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
     </div>
 </div>
-
-<nav aria-label="Navegación de productos">
-    <ul class="pagination justify-content-center my-5">
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
-        </li>
-        <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#">Siguiente</a>
-        </li>
-    </ul>
-</nav>
 
 <footer id="contacto" class="bg-dark text-white text-center py-4">
     <p>&copy; 2025 Baquetas Pro. Todos los derechos reservados.</p>
@@ -89,5 +65,7 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="app.js"></script>
+
 </body>
 </html>
